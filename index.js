@@ -1,25 +1,25 @@
 const ROCK = "Rock";
 const PAPER = "Paper";
 const SCISSORS = "Scissors";
-const choices = [ROCK, PAPER, SCISSORS];
+const CHOICES = [ROCK, PAPER, SCISSORS];
 
 function getComputerChoice() {
-  let choice = choices[Math.floor(Math.random() * 3)];
+  let choice = CHOICES[Math.floor(Math.random() * 3)];
   return choice;
 }
 
-function playRound(playerSelection, ComputerSelection) {
+function playRound(playerSelection, computerSelection) {
   let pSel = capitalize(playerSelection);
-  let comSel = ComputerSelection;
+  let comSel = computerSelection;
   let result;
 
-  if (!choices.includes(pSel)) {
+  if (!CHOICES.includes(pSel)) {
     alert(`Invalid player input! "${pSel}" is not a valid RPS move.`);
     return;
   }
 
   if (pSel === comSel) {
-    result = `It's a tie! ${pSel} is tied against ${comSel}.`;
+    result = `It's a Tie! ${pSel} is tied against ${comSel}.`;
   } else if (
     (pSel === ROCK && comSel === SCISSORS) ||
     (pSel === PAPER && comSel === ROCK) ||
@@ -39,3 +39,28 @@ function capitalize(playerSelection) {
   );
 }
 
+function game() {
+  let pcWins = 0,
+    playerWins = 0;
+
+  for (let i = 0; i < 5; i++) {
+    let playerSelection = prompt("What's your move?");
+    let computerSelection = getComputerChoice();
+    console.log(`Computer chooses ${computerSelection}`);
+    let roundResult = playRound(playerSelection, computerSelection);
+    console.log(roundResult);
+    playerWins += roundResult.includes("Win") ? 1 : 0;
+    pcWins += roundResult.includes("Lose") ? 1 : 0;
+  }
+
+  let gameResult =
+    playerWins > pcWins
+      ? "You won the game!"
+      : playerWins < pcWins
+      ? "You lost the game!"
+      : "You are tied against the computer.";
+
+  return gameResult + ` ${playerWins} to ${pcWins}.`;
+}
+
+console.log(game());
