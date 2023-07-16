@@ -2,65 +2,77 @@ const ROCK = "Rock";
 const PAPER = "Paper";
 const SCISSORS = "Scissors";
 const CHOICES = [ROCK, PAPER, SCISSORS];
+let playerScore = 0, computerScore = 0;
 
 function getComputerChoice() {
-  let choice = CHOICES[Math.floor(Math.random() * 3)];
-  return choice;
+	let choice = CHOICES[Math.floor(Math.random() * 3)];
+	return choice;
 }
 
 function playRound(playerSelection, computerSelection) {
-  let pSel = capitalize(playerSelection);
-  let comSel = computerSelection;
-  let result;
+	let pSel = capitalize(playerSelection);
+	let comSel = computerSelection;
+	let result;
 
-  if (!CHOICES.includes(pSel)) {
-    alert(`Invalid player input! "${pSel}" is not a valid RPS move.`);
-    return;
-  }
+	if (!CHOICES.includes(pSel)) {
+		alert(`Invalid player input! "${pSel}" is not a valid RPS move.`);
+		return;
+	}
 
-  if (pSel === comSel) {
-    result = `It's a Tie! ${pSel} is tied against ${comSel}.`;
-  } else if (
-    (pSel === ROCK && comSel === SCISSORS) ||
-    (pSel === PAPER && comSel === ROCK) ||
-    (pSel === SCISSORS && comSel === PAPER)
-  ) {
-    result = `You Win! ${pSel} beats ${comSel}.`;
-  } else {
-    result = `You Lose! ${comSel} beats ${pSel}.`;
-  }
+	if (pSel === comSel) {
+		result = `It's a Tie! ${pSel} is tied against ${comSel}.`;
+	} else if (
+		(pSel === ROCK && comSel === SCISSORS) ||
+		(pSel === PAPER && comSel === ROCK) ||
+		(pSel === SCISSORS && comSel === PAPER)
+	) {
+		result = `You Win! ${pSel} beats ${comSel}.`;
+	} else {
+		result = `You Lose! ${comSel} beats ${pSel}.`;
+	}
 
-  return result;
+	return result;
 }
 
 function capitalize(playerSelection) {
-  return (
-    playerSelection[0].toUpperCase() + playerSelection.substr(1).toLowerCase()
-  );
+	return (
+		playerSelection[0].toUpperCase() +
+		playerSelection.substr(1).toLowerCase()
+	);
 }
 
-function game() {
-  let pcWins = 0,
-    playerWins = 0;
+const buttons = document.querySelectorAll("button");
+const roundResult = document.querySelector(".results .round");
+const score = document.querySelector(".results .score");
+const gameResult = document.querySelector(".results .game")
 
-  for (let i = 0; i < 5; i++) {
-    let playerSelection = prompt("What's your move?");
-    let computerSelection = getComputerChoice();
-    console.log(`Computer chooses ${computerSelection}`);
-    let roundResult = playRound(playerSelection, computerSelection);
-    console.log(roundResult);
-    playerWins += roundResult.includes("Win") ? 1 : 0;
-    pcWins += roundResult.includes("Lose") ? 1 : 0;
-  }
+buttons.forEach(button => {
+	button.addEventListener("click", () => {
+		let result = playRound(button.id, getComputerChoice())
+		roundResult.textContent = result;
+		updateScore(result);
+	})
+})
 
-  let gameResult =
-    playerWins > pcWins
-      ? "You won the game!"
-      : playerWins < pcWins
-      ? "You lost the game!"
-      : "You are tied against the computer.";
-
-  return gameResult + ` ${playerWins} to ${pcWins}.`;
+function updateScore(result) {
+	if (playerScore === 0 && computerScore === 0) {
+		gameResult.textContent = "";
+	}
+	playerScore += result.includes("Win") ? 1 : 0;
+	computerScore += result.includes("Lose") ? 1 : 0;
+	score.textContent = `You: ${playerScore}  Computer: ${computerScore}`;
+	if (playerScore === 5) {
+		gameResult.textContent = "You won the game! game ends."
+	}
+	if (computerScore === 5) {
+		gameResult.textContent = "You lost the game! game ends."
+	}
+	if (playerScore === 5 || computerScore === 5){
+		resetScores();
+	}
 }
 
-console.log(game());
+function resetScores() {
+	playerScore = 0;
+	computerScore = 0;
+}
