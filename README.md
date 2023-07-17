@@ -1,1 +1,1 @@
-This is a simple rock-paper-scissors game against a computer implemented in javascript.
+This is a simple rock-paper-scissors game against a computer implemented in JavaScript, HTML and CSS.
