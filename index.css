@@ -1,0 +1,216 @@
+* {
+	font-family: Roboto, Georgia, "Times New Roman", Times, serif;
+	font-size: xx-large;
+    /* border: red 1px solid; */
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    /* overflow: hidden; */
+}
+
+body {
+	min-height: 100vh;
+}
+
+body.gameWon {
+    transition: ease-in-out 1s;
+    background-color: greenyellow;
+}
+
+body.gameLost {
+    transition: ease-in-out 1s;
+    background-color: lightcoral;
+    color: aliceblue;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.header {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.header > p {
+	font-size: large;
+	margin: 0;
+	visibility: hidden;
+}
+
+.header:hover > p {
+	visibility: visible;
+	transform: translateY(5px);
+	transition: ease-in-out 0.15s;
+}
+
+.buttons {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 60px;
+}
+
+img {
+	max-width: 200px;
+}
+
+.button p {
+	text-align: center;
+	font-size: x-large;
+	font-weight: 800;
+	visibility: hidden;
+}
+
+.button:hover > img {
+	transition: ease-in-out 0.15s;
+	-webkit-filter: drop-shadow(5px 5px 5px #222);
+	filter: drop-shadow(5px 5px 5px #222);
+}
+
+.button:hover > p {
+	visibility: visible;
+	transform: translateY(5px);
+	transition: ease-in-out 0.15s;
+}
+
+.chosen {
+    transition: ease-in-out 0.15s;
+	-webkit-filter: drop-shadow(5px 5px 5px rgb(102, 102, 255));
+	filter: drop-shadow(5px 5px 5px rgb(102, 102, 255));
+}
+
+.compChosen {
+    transition: ease-in-out 0.15s;
+	-webkit-filter: drop-shadow(-5px -5px 5px red);
+	filter: drop-shadow(-5px -5px 5px red);
+}
+
+.bothChosen {
+    transition: ease-in-out 0.15s;
+	-webkit-filter: drop-shadow(5px 5px 5px rgb(102, 102, 255)) drop-shadow(-5px -5px 5px red);
+	filter: drop-shadow(5px 5px 5px rgb(102, 102, 255)) drop-shadow(-5px -5px 5px red);
+}
+
+
+.info {
+    align-self: normal;
+    justify-self: normal;
+	display: flex;
+    justify-content: space-between;
+    gap: 80px;
+}
+
+.scoreCard {
+    display: flex;
+    flex-direction: column;
+}
+
+.scoreCard.player {
+    align-items: flex-start;
+}
+
+.scoreCard.computer {
+    align-items: flex-end;
+}
+
+.scoreCard > p {
+    margin: 0 10px;
+    visibility: hidden;
+}
+
+.scoreCard.player:hover > p {
+    animation: enterFromLeft 0.2s forwards;
+    transition: ease-in-out;
+    visibility: visible;
+    opacity: 0;
+    position: relative;
+    left: -100%;
+}
+
+@keyframes enterFromLeft {
+    0% {
+        opacity: 0;
+        left: -100%;
+    }
+    100% {
+        opacity: 1;
+        left: 0;
+    }
+}
+
+.scoreCard.computer:hover > p {
+    animation: enterFromRight 0.2s forwards;
+    transition: ease-in-out;
+    visibility: visible;
+    opacity: 0;
+    position: relative;
+    right: -100%;
+}
+
+@keyframes enterFromRight {
+    0% {
+        opacity: 0;
+        right: -100%;
+    }
+    100% {
+        opacity: 1;
+        right: 0;
+    }
+}
+
+.circle {
+	width: 100px;
+    position: relative; 
+    border: black 5px solid;
+}
+
+.circle p {
+    opacity: 1;
+    filter: none;
+    font-size: 60px;
+    padding: 20px;
+    color: white;
+}
+
+.circle.blue {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: blue;
+    border-radius: 0 100% 0 0;
+}
+
+.circle.red {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: red;
+    border-radius: 100% 0 0 0;
+}
+
+.results {
+    flex: auto;
+	text-align: center;
+    word-wrap: break-word;
+}
+
+.roundLost {
+    transition: ease-in-out 0.5s;
+    color: red;
+}
+
+.roundWon {
+    transition: ease-in-out 0.5s;
+    color: green;
+}
